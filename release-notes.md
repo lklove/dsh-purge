@@ -1,3 +1,21 @@
+# 1.1.72
+
+## 中文
+
+- 版本 **1.1.72**。
+- 修复宿主 **0.2.1** 上的 `unknown prompt variable "{{cwd}}" in section "deployment:persona-suffix"`：新版只注册 `provider` / `model` 两个 prompt variable，工作目录改由 runtime context 注入。
+- 插件 bundle patch 的 `personaSuffix` 不再写 `{{cwd}}`；persona 段的工作目录句一律落真实路径（拿不到目录就整句不要），不再交给宿主插值。
+- 收尾加一道闸：输出段里残留的 `{{cwd}}` 按当前会话目录落字；宿主注册过 `cwd` 的老版本保持原行为。
+- 新增 `npm test`（`test/cwd-variable.test.mjs`），用宿主同款严格插值覆盖该回归。
+
+## English
+
+- **1.1.72**.
+- Fix `unknown prompt variable "{{cwd}}" in section "deployment:persona-suffix"` on host **0.2.1**: only `provider` / `model` are registered prompt variables now; the working directory is a runtime context.
+- The bundle patch no longer sets `personaSuffix` to `{{cwd}}`; persona working-directory lines are written as the literal path (dropped when no directory is known) instead of being handed to the host interpolator.
+- A final guard substitutes any leftover `{{cwd}}` with the session directory; hosts that do register `cwd` keep the old behavior.
+- Add `npm test` (`test/cwd-variable.test.mjs`) with the host's strict interpolation rules.
+
 # 1.1.71
 
 ## 中文

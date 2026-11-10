@@ -28,7 +28,9 @@
   config:
     includeHarnessIdentity: false
     personaPrefix: ""
-    personaSuffix: Your working directory is {{cwd}}.
+    # 0.2.1 起宿主只注册 provider / model，cwd 改由 runtime context 注入；
+    # 这里再写 {{cwd}} 会让每一轮 renderPrompt 抛 unknown prompt variable。
+    personaSuffix: ""
 
 - id: dsh-purge
   inject: [systemPrompt, tools]
